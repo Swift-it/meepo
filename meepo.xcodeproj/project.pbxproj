@@ -18,6 +18,7 @@
 		8CB5FBD120244BE600809D45 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBCD20244BE500809D45 /* Colors.m */; };
 		8CB5FBD220244BE600809D45 /* Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBCE20244BE600809D45 /* Fonts.m */; };
 		8CB5FBD620244DA800809D45 /* notesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBD520244DA800809D45 /* notesCell.m */; };
+		8CB5FBDA202463D600809D45 /* httpData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBD9202463D600809D45 /* httpData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		8CB5FBD020244BE600809D45 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		8CB5FBD420244DA800809D45 /* notesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = notesCell.h; sourceTree = "<group>"; };
 		8CB5FBD520244DA800809D45 /* notesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = notesCell.m; sourceTree = "<group>"; };
+		8CB5FBD8202463D600809D45 /* httpData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = httpData.h; sourceTree = "<group>"; };
+		8CB5FBD9202463D600809D45 /* httpData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = httpData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,7 @@
 		8CB5FB9920244AD200809D45 /* meepo */ = {
 			isa = PBXGroup;
 			children = (
+				8CB5FBD7202463C000809D45 /* http */,
 				8CB5FBD320244D8A00809D45 /* cell */,
 				8CB5FBCC20244BD200809D45 /* design */,
 				8CB5FB9A20244AD200809D45 /* AppDelegate.h */,
@@ -161,6 +165,15 @@
 				8CB5FBD520244DA800809D45 /* notesCell.m */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		8CB5FBD7202463C000809D45 /* http */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5FBD8202463D600809D45 /* httpData.h */,
+				8CB5FBD9202463D600809D45 /* httpData.m */,
+			);
+			path = http;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB5FBDA202463D600809D45 /* httpData.m in Sources */,
 				8CB5FB9F20244AD200809D45 /* ViewController.m in Sources */,
 				8CB5FBD120244BE600809D45 /* Colors.m in Sources */,
 				8CB5FBAA20244AD200809D45 /* main.m in Sources */,

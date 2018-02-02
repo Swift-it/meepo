@@ -18,6 +18,5 @@
 
 + (UIColor*) placeholderColor;
 
-+ (UIColor*) meepoColor;
 
 @end

@@ -11,10 +11,11 @@
 #import "Colors.h"
 #import "Fonts.h"
 #import "notesCell.h"
+#import "httpData.h"
 
-@interface ViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate> {
+@interface ViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, httpDataDelegate> {
   
-    NSMutableArray *notesArray;
+    NSArray *notesArray;
 
 }
 

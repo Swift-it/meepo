@@ -10,10 +10,10 @@
 
 @implementation Colors
 
-
+// From Facebook :)
 + (UIColor*) mainColor
 {
-    return [UIColor colorWithRed:37/255.0 green:139/255.0 blue:137/255.0 alpha:1];
+    return [UIColor colorWithRed:241/255.0 green:112/255.0 blue:48/255.0 alpha:1];
 }
 
 + (UIColor*) veryLightGray
@@ -29,12 +29,6 @@
 + (UIColor*) placeholderColor
 {
     return [UIColor colorWithRed:149/255.0 green:165/255.0 blue:166/255.0 alpha:1];
-}
-
-// From Facebook :)
-+ (UIColor*) meepoColor
-{
-    return [UIColor colorWithRed:241/255.0 green:112/255.0 blue:48/255.0 alpha:1];
 }
 
 @end

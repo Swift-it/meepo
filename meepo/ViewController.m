@@ -8,6 +8,9 @@
 
 #import "ViewController.h"
 
+
+//#define k_testLink @"http://httpbin.org/ip"
+#define k_testLink @"https://timesheet-1172.appspot.com/2a00ea83/notes"
 @interface ViewController ()
 
 @end
@@ -17,6 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    notesArray = [[NSArray alloc] init];
+    httpData *loginNetHelper = [[httpData alloc]init];
+    loginNetHelper.delegate = self;
+    [loginNetHelper getData:k_testLink];
+    
+    
     self.view.backgroundColor = [Colors whiteColor];
     
     // Setting up Navbar
@@ -25,7 +35,7 @@
     UIBarButtonItem *newback = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newback];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setBarTintColor:[Colors meepoColor]];
+    [self.navigationController.navigationBar setBarTintColor:[Colors mainColor]];
     [self.navigationController.navigationBar setTranslucent:NO];
     
     // Setting up tableView
@@ -37,6 +47,11 @@
     [self.table setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_table];
+    [notesCell setTableViewWidth:self.view.frame.size.width];
+    
+    
+    
+
 }
 
 
@@ -68,13 +83,13 @@
         {
             UITableViewCell * cell = [self cellForIndex:indexPath];
             
-            NSDictionary *currentDict = [[NSDictionary alloc] init];
+            
+            NSDictionary *currentDict = [notesArray objectAtIndex:indexPath.row];
             [(notesCell *)cell  configureCellForText:currentDict];
             
             return cell;
             
         }
-            
         default: return nil;
     }
     
@@ -111,6 +126,22 @@
 
 
 #pragma Other
+// Recive GET data
+-(void)didFininshRequestWithJson:(NSArray *)responseJson
+{
+    NSLog(@"%@", responseJson);
+    NSLog(@"count: %lu", (unsigned long)responseJson.count);
+    notesArray = [NSArray arrayWithArray:responseJson];
+    [self.table reloadData];
+}
+
+// Recive GET Failed.
+-(void)didFailWithRequest:(NSString *)err {
+    NSLog(@"%@", err);
+}
+
+
+
 // Setting the style of navigationbar Title
 - (void)setTitle:(NSString *)title {
     [super setTitle:title];
@@ -125,8 +156,6 @@
     titleView.text = title;
     [titleView sizeToFit];
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {
