@@ -10,8 +10,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Colors.h"
 #import "Fonts.h"
+#import "notesCell.h"
 
-@interface ViewController : UIViewController 
+@interface ViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate> {
+  
+    NSMutableArray *notesArray;
+
+}
+
+@property (nonatomic, strong) UITableView *table;
+
 
 @end
 

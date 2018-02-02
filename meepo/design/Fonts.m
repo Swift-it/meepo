@@ -19,7 +19,7 @@
     return [UIFont fontWithName:@"KohinoorBangla-Regular" size:15];
 }
 
-+ (UIFont*) meepoColor {
++ (UIFont*) navBar {
     return [UIFont fontWithName:@"KohinoorBangla-Semibold" size:18];
 }
 
