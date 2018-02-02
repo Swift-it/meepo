@@ -19,6 +19,7 @@ static NSString *kCellIdentifier = @"notesCell";
 + (CGFloat)cellHeightForText;
 - (void)configureCellForText:(NSDictionary *)Text;
 
-@property (nonatomic, strong) NSDictionary *object;
+@property (nonatomic, strong) NSDictionary *Object;
 
 @end
+

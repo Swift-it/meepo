@@ -9,8 +9,8 @@
 #import "ViewController.h"
 
 
-//#define k_testLink @"http://httpbin.org/ip"
 #define k_testLink @"https://timesheet-1172.appspot.com/2a00ea83/notes"
+
 @interface ViewController ()
 
 @end
@@ -25,7 +25,6 @@
     httpData *loginNetHelper = [[httpData alloc]init];
     loginNetHelper.delegate = self;
     [loginNetHelper getData:k_testLink];
-    
     
     self.view.backgroundColor = [Colors whiteColor];
     
@@ -103,7 +102,7 @@
     if (!cell)
     {
         cell = [notesCell cellForTableWidth:self.table.frame.size.width];
-        cell.accessoryType =  UITableViewCellAccessoryNone;
+        cell.accessoryType =  UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -112,9 +111,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 55;
+    return 110;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
