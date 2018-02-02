@@ -15,6 +15,8 @@
 		8CB5FBAA20244AD200809D45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBA920244AD200809D45 /* main.m */; };
 		8CB5FBB420244AD300809D45 /* meepoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBB320244AD300809D45 /* meepoTests.m */; };
 		8CB5FBBF20244AD300809D45 /* meepoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBBE20244AD300809D45 /* meepoUITests.m */; };
+		8CB5FBD120244BE600809D45 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBCD20244BE500809D45 /* Colors.m */; };
+		8CB5FBD220244BE600809D45 /* Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FBCE20244BE600809D45 /* Fonts.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		8CB5FBBA20244AD300809D45 /* meepoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = meepoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5FBBE20244AD300809D45 /* meepoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = meepoUITests.m; sourceTree = "<group>"; };
 		8CB5FBC020244AD300809D45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CB5FBCD20244BE500809D45 /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		8CB5FBCE20244BE600809D45 /* Fonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fonts.m; sourceTree = "<group>"; };
+		8CB5FBCF20244BE600809D45 /* Fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fonts.h; sourceTree = "<group>"; };
+		8CB5FBD020244BE600809D45 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 		8CB5FB9920244AD200809D45 /* meepo */ = {
 			isa = PBXGroup;
 			children = (
+				8CB5FBCC20244BD200809D45 /* design */,
 				8CB5FB9A20244AD200809D45 /* AppDelegate.h */,
 				8CB5FB9B20244AD200809D45 /* AppDelegate.m */,
 				8CB5FB9D20244AD200809D45 /* ViewController.h */,
@@ -130,6 +137,17 @@
 				8CB5FBC020244AD300809D45 /* Info.plist */,
 			);
 			path = meepoUITests;
+			sourceTree = "<group>";
+		};
+		8CB5FBCC20244BD200809D45 /* design */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5FBD020244BE600809D45 /* Colors.h */,
+				8CB5FBCD20244BE500809D45 /* Colors.m */,
+				8CB5FBCF20244BE600809D45 /* Fonts.h */,
+				8CB5FBCE20244BE600809D45 /* Fonts.m */,
+			);
+			path = design;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,8 +284,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CB5FB9F20244AD200809D45 /* ViewController.m in Sources */,
+				8CB5FBD120244BE600809D45 /* Colors.m in Sources */,
 				8CB5FBAA20244AD200809D45 /* main.m in Sources */,
 				8CB5FB9C20244AD200809D45 /* AppDelegate.m in Sources */,
+				8CB5FBD220244BE600809D45 /* Fonts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

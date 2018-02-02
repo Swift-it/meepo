@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "Colors.h"
+#import "Fonts.h"
 
-@interface ViewController : UIViewController
-
+@interface ViewController : UIViewController 
 
 @end
 
