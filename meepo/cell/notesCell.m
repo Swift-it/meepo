@@ -17,12 +17,10 @@
 
 @end
 
-#define k_placeholderText @"Title"
-
 
 static CGFloat kPadding = 8.0f;
 static CGFloat kTableViewWidth = -1;
-static CGFloat kBigPadding = 35.0f;
+static CGFloat kBigPadding = 40.0f;
 
 @implementation notesCell
 
@@ -77,6 +75,7 @@ static CGFloat kBigPadding = 35.0f;
     title.textColor = mainColor;
     title.textAlignment = NSTextAlignmentLeft;
     title.lineBreakMode = NSLineBreakByWordWrapping;
+    title.lineBreakMode = NSLineBreakByTruncatingTail;
     title.numberOfLines = 0;
     cell.mainText = title;
     [cell addSubview:cell.mainText];
@@ -87,7 +86,7 @@ static CGFloat kBigPadding = 35.0f;
     description.textColor = placeholderColor;
     description.textAlignment = NSTextAlignmentLeft;
     description.lineBreakMode = NSLineBreakByWordWrapping;
-    description.numberOfLines = 2;
+    description.numberOfLines = 3;
     description.lineBreakMode = NSLineBreakByTruncatingTail;
     cell.descriptionText = description;
     [cell addSubview:cell.descriptionText];
@@ -108,9 +107,9 @@ static CGFloat kBigPadding = 35.0f;
     return height;
 }
 
-+(CGSize)calculateLabelSize:(UILabel *)label {
++(CGSize)calculateLabelSize:(UILabel *)label :(CGFloat)fontSizeLines {
   
-    CGSize tempSize = CGSizeMake(kTableViewWidth-kPadding-kBigPadding, 999);
+    CGSize tempSize = CGSizeMake(kTableViewWidth-kPadding-kBigPadding, fontSizeLines);
     
     CGRect textRect = [label.text boundingRectWithSize:tempSize
                                          options:NSStringDrawingUsesLineFragmentOrigin
@@ -126,14 +125,18 @@ static CGFloat kBigPadding = 35.0f;
 {
      [self setNeedsLayout];
     self.mainText.text = [text objectForKey:@"title"];
-    self.mainText.frame = CGRectMake(kPadding*2, kPadding, [notesCell calculateLabelSize:self.mainText].width, [notesCell calculateLabelSize:self.mainText].height);
-    [self.mainText sizeToFit];
+    self.mainText.frame = CGRectMake(kPadding*2, kPadding, [notesCell calculateLabelSize:self.mainText :(self.mainText.font.lineHeight*2)].width, [notesCell calculateLabelSize:self.mainText :self.mainText.font.lineHeight*2].height);
+
+    // If title is more than 2 lines description needs to be >= 2
+    CGFloat lineheight = 3;
+    if (self.mainText.frame.size.height >= (self.mainText.font.lineHeight*2))
+        lineheight = 2;
     
     self.descriptionText.text = [text objectForKey:@"description"];
-      self.descriptionText.frame = CGRectMake(kPadding*2, kPadding*2+[notesCell calculateLabelSize:self.mainText].height, kTableViewWidth-kPadding-kBigPadding, [notesCell calculateLabelSize:self.descriptionText].height);
-    [self.descriptionText sizeToFit];
+    self.descriptionText.frame = CGRectMake(kPadding*2, kPadding*2+self.mainText.frame.size.height, kTableViewWidth-kPadding-kBigPadding, [notesCell calculateLabelSize:self.descriptionText: (self.descriptionText.font.lineHeight*lineheight)].height);
+
     
-    self.sideImg.frame = CGRectMake(self.mainText.frame.origin.x, self.mainText.frame.size.height+self.mainText.frame.origin.y + 4, self.mainText.frame.size.width, 1.5);
+    self.sideImg.frame = CGRectMake(self.mainText.frame.origin.x, self.mainText.frame.size.height+self.mainText.frame.origin.y + 1.5, self.mainText.frame.size.width, 1.5);
     
   
 }

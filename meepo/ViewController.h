@@ -12,6 +12,7 @@
 #import "Fonts.h"
 #import "notesCell.h"
 #import "httpData.h"
+#import "detailedNote.h"
 
 @interface ViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, httpDataDelegate> {
   

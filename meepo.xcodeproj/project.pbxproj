@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1025042024C62B00F9FDC5 /* detailedNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1025032024C62B00F9FDC5 /* detailedNote.m */; };
 		8CB5FB9C20244AD200809D45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FB9B20244AD200809D45 /* AppDelegate.m */; };
 		8CB5FB9F20244AD200809D45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FB9E20244AD200809D45 /* ViewController.m */; };
 		8CB5FBA220244AD200809D45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB5FBA020244AD200809D45 /* Main.storyboard */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C1025022024C62B00F9FDC5 /* detailedNote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detailedNote.h; sourceTree = "<group>"; };
+		8C1025032024C62B00F9FDC5 /* detailedNote.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = detailedNote.m; sourceTree = "<group>"; };
 		8CB5FB9720244AD200809D45 /* meepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5FB9A20244AD200809D45 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8CB5FB9B20244AD200809D45 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 				8CB5FBA520244AD200809D45 /* LaunchScreen.storyboard */,
 				8CB5FBA820244AD200809D45 /* Info.plist */,
 				8CB5FBA920244AD200809D45 /* main.m */,
+				8C1025022024C62B00F9FDC5 /* detailedNote.h */,
+				8C1025032024C62B00F9FDC5 /* detailedNote.m */,
 			);
 			path = meepo;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				8CB5FBDA202463D600809D45 /* httpData.m in Sources */,
 				8CB5FB9F20244AD200809D45 /* ViewController.m in Sources */,
 				8CB5FBD120244BE600809D45 /* Colors.m in Sources */,
+				8C1025042024C62B00F9FDC5 /* detailedNote.m in Sources */,
 				8CB5FBAA20244AD200809D45 /* main.m in Sources */,
 				8CB5FBD620244DA800809D45 /* notesCell.m in Sources */,
 				8CB5FB9C20244AD200809D45 /* AppDelegate.m in Sources */,

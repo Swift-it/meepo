@@ -8,8 +8,7 @@
 
 #import "ViewController.h"
 
-
-#define k_testLink @"https://timesheet-1172.appspot.com/2a00ea83/notes"
+#define k_notesLink @"https://timesheet-1172.appspot.com/2a00ea83/notes"
 
 @interface ViewController ()
 
@@ -22,9 +21,11 @@
     
     
     notesArray = [[NSArray alloc] init];
-    httpData *loginNetHelper = [[httpData alloc]init];
-    loginNetHelper.delegate = self;
-    [loginNetHelper getData:k_testLink];
+    httpData *dataFetch = [[httpData alloc]init];
+    dataFetch.delegate = self;
+    [datafetch getData:k_testLink];
+    
+
     
     self.view.backgroundColor = [Colors whiteColor];
     
@@ -47,9 +48,6 @@
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_table];
     [notesCell setTableViewWidth:self.view.frame.size.width];
-    
-    
-    
 
 }
 
@@ -117,8 +115,13 @@
     if (indexPath.section == 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
+        /* Could have just sent in the entire objects, because the /id function doesn't give us something more
+           But guessing that wasn't the point. */
+        
+        detailedNote *viewController = [[detailedNote alloc] init];
+        viewController.note = [notesArray objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:viewController animated:YES];
     }
-    
 }
 
 
@@ -129,7 +132,7 @@
 {
     NSLog(@"%@", responseJson);
     NSLog(@"count: %lu", (unsigned long)responseJson.count);
-    notesArray = [NSArray arrayWithArray:responseJson];
+   // notesArray = [NSArray arrayWithArray:responseJson];
     [self.table reloadData];
 }
 

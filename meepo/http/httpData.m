@@ -35,6 +35,7 @@
                 
                if (!error) {
                    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                   NSLog(@"%@", jsonArray);
                     [self.delegate didFininshRequestWithJson:jsonArray];
                 }
                 else
