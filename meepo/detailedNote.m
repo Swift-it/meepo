@@ -13,7 +13,6 @@
 @end
 
 static CGFloat kPadding = 16.0f;
-static CGFloat kBigPadding = 40.0f;
 static CGFloat kStandardHeaderLabelHeight = 50.0f;
 
 
@@ -35,6 +34,15 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     [self.navigationController.navigationBar setTranslucent:NO];
   
     
+    
+    
+    
+    
+    
+    UIScrollView *scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    scroller.scrollEnabled = YES;
+    scroller.bounces = YES;
+    
     title = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kPadding, self.view.bounds.size.width-(kPadding*2), kStandardHeaderLabelHeight)];
     title.font = [Fonts mainFont];
     title.textColor =  [Colors mainColor];
@@ -46,7 +54,13 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     title.frame = CGRectMake(kPadding, kPadding, [self calculateLabelSize:title].width, [self calculateLabelSize:title].height);
     [title sizeToFit];
     
-    [self.view addSubview:title];
+    [scroller addSubview:title];
+    
+    
+    UIImageView *sideimg = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y+title.frame.size.height + 1.5, title.frame.size.width, 1)];
+    sideimg.backgroundColor = [Colors mainColor];
+    sideimg.alpha = 0.5;
+    [scroller addSubview:sideimg];
     
     
     description = [[UILabel alloc] init];
@@ -59,21 +73,38 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     description.text = [_note objectForKey:@"description"];
     description.frame = CGRectMake(kPadding, title.frame.size.height + title.frame.origin.y + kPadding, [self calculateLabelSize:description].width, [self calculateLabelSize:description].height);
     [description sizeToFit];
-    [self.view addSubview:description];
-
-   
+    [scroller addSubview:description];
+    
+    
+    
+    // Change
+    UIButton *change = [[UIButton alloc] initWithFrame:CGRectMake(8, description.frame.size.height+description.frame.origin.y+kPadding, self.view.bounds.size.width-16, 50)];
+    [change addTarget:self action:nil forControlEvents: UIControlEventTouchUpInside];
+    [change addTarget:self action:@selector(animateDownPress:) forControlEvents: UIControlEventTouchDown];
+    [change addTarget:self action:@selector(animateUpPress:) forControlEvents: UIControlEventTouchUpOutside];
+    [change setTitle:[@"Ändra" uppercaseString] forState:UIControlStateNormal];
+    change.titleLabel.font = [Fonts mainFont];
+    change.backgroundColor = [Colors mainColor];
+    change.clipsToBounds = YES;
+    change.layer.cornerRadius = 10/2.0f;
+    [scroller addSubview:change];
+    
     // Remove
-    UIButton *remove = [[UIButton alloc] initWithFrame:CGRectMake(8, self.view.bounds.size.height-150, self.view.bounds.size.width-16, 50)];
+    UIButton *remove = [[UIButton alloc] initWithFrame:CGRectMake(8, change.frame.origin.y+change.frame.size.height+kPadding, self.view.bounds.size.width-16, 50)];
     [remove addTarget:self action:nil forControlEvents: UIControlEventTouchUpInside];
     [remove addTarget:self action:@selector(animateDownPress:) forControlEvents: UIControlEventTouchDown];
     [remove addTarget:self action:@selector(animateUpPress:) forControlEvents: UIControlEventTouchUpOutside];
-    NSString *removeText = [@"Ta bort" uppercaseString];
-    [remove setTitle:removeText forState:UIControlStateNormal];
+    [remove setTitle:[@"Ta bort" uppercaseString] forState:UIControlStateNormal];
     remove.titleLabel.font = [Fonts mainFont];
-    remove.backgroundColor = [Colors mainColor];
+    remove.backgroundColor = [Colors redColor];
     remove.clipsToBounds = YES;
     remove.layer.cornerRadius = 10/2.0f;
-    [self.view addSubview:remove];
+    [scroller addSubview:remove];
+    
+    
+    
+    scroller.contentSize = CGSizeMake(self.view.bounds.size.width, remove.frame.size.height+remove.frame.origin.y+85+kPadding);
+    [self.view addSubview:scroller];
 }
                       
 

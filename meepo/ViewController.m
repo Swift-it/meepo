@@ -23,9 +23,7 @@
     notesArray = [[NSArray alloc] init];
     httpData *dataFetch = [[httpData alloc]init];
     dataFetch.delegate = self;
-    [datafetch getData:k_testLink];
-    
-
+    [datafetch getData:k_notesLink];
     
     self.view.backgroundColor = [Colors whiteColor];
     
@@ -114,9 +112,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        /* Could have just sent in the entire objects, because the /id function doesn't give us something more
-           But guessing that wasn't the point. */
         
         detailedNote *viewController = [[detailedNote alloc] init];
         viewController.note = [notesArray objectAtIndex:indexPath.row];

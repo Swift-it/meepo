@@ -18,5 +18,7 @@
 
 + (UIColor*) placeholderColor;
 
++ (UIColor*) redColor;
+
 
 @end

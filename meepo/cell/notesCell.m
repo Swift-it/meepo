@@ -123,7 +123,7 @@ static CGFloat kBigPadding = 40.0f;
 
 - (void)configureCellForText:(NSDictionary *)text
 {
-     [self setNeedsLayout];
+    [self setNeedsLayout];
     self.mainText.text = [text objectForKey:@"title"];
     self.mainText.frame = CGRectMake(kPadding*2, kPadding, [notesCell calculateLabelSize:self.mainText :(self.mainText.font.lineHeight*2)].width, [notesCell calculateLabelSize:self.mainText :self.mainText.font.lineHeight*2].height);
 
