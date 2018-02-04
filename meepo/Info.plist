@@ -55,5 +55,14 @@
             </dict>
         </dict>
     </dict>
+    <key>CFBundleIconFiles</key>
+    <array>
+        <string>80.png</string>
+        <string>88.png</string>
+        <string>144.png</string>
+        <string>152.png</string>
+        <string>172.png</string>
+        <string>196.png</string>
+    </array>
 </dict>
 </plist>

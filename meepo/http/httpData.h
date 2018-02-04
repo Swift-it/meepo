@@ -18,7 +18,8 @@
 @interface httpData : NSObject
 
 
--(void)getData:(NSString *)request;
+-(void)getData;
+-(void)postData:(NSDictionary *)note :(NSString *)type;
 
 @property (nonatomic,strong) NSObject <httpDataDelegate> *delegate;
 

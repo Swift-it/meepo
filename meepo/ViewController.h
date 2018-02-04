@@ -13,10 +13,12 @@
 #import "notesCell.h"
 #import "httpData.h"
 #import "detailedNote.h"
+#import "addNote.h"
 
 @interface ViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, httpDataDelegate> {
   
-    NSArray *notesArray;
+    NSMutableArray *notesArray;
+    UIRefreshControl *refresh;
 
 }
 

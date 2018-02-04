@@ -12,7 +12,7 @@
 #import "httpData.h"
 
 
-@interface detailedNote : UIViewController {
+@interface detailedNote : UIViewController <httpDataDelegate> {
   
     UILabel *title;
     UILabel *description;

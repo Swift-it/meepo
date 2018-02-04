@@ -26,7 +26,6 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
  
     // Setting up Navbar
     [self setTitle:@"Details"];
-    [[UIView appearance] setTintColor:[UIColor whiteColor]];
     UIBarButtonItem *newback = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newback];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -35,7 +34,7 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
   
     
     
-    
+    NSLog(@"id: %@", [_note objectForKey:@"id"]);
     
     
     
@@ -43,7 +42,7 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     scroller.scrollEnabled = YES;
     scroller.bounces = YES;
     
-    title = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, kPadding, self.view.bounds.size.width-(kPadding*2), kStandardHeaderLabelHeight)];
+    title = [[UILabel alloc] init];
     title.font = [Fonts mainFont];
     title.textColor =  [Colors mainColor];
     title.textAlignment = NSTextAlignmentLeft;
@@ -75,8 +74,7 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     [description sizeToFit];
     [scroller addSubview:description];
     
-    
-    
+
     // Change
     UIButton *change = [[UIButton alloc] initWithFrame:CGRectMake(8, description.frame.size.height+description.frame.origin.y+kPadding, self.view.bounds.size.width-16, 50)];
     [change addTarget:self action:nil forControlEvents: UIControlEventTouchUpInside];
@@ -91,7 +89,7 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     
     // Remove
     UIButton *remove = [[UIButton alloc] initWithFrame:CGRectMake(8, change.frame.origin.y+change.frame.size.height+kPadding, self.view.bounds.size.width-16, 50)];
-    [remove addTarget:self action:nil forControlEvents: UIControlEventTouchUpInside];
+    [remove addTarget:self action:@selector(remove) forControlEvents: UIControlEventTouchUpInside];
     [remove addTarget:self action:@selector(animateDownPress:) forControlEvents: UIControlEventTouchDown];
     [remove addTarget:self action:@selector(animateUpPress:) forControlEvents: UIControlEventTouchUpOutside];
     [remove setTitle:[@"Ta bort" uppercaseString] forState:UIControlStateNormal];
@@ -106,7 +104,77 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     scroller.contentSize = CGSizeMake(self.view.bounds.size.width, remove.frame.size.height+remove.frame.origin.y+85+kPadding);
     [self.view addSubview:scroller];
 }
-                      
+
+
+-(void)deleteNote {
+    
+    if (title.text.length < 3 || description.text.length < 3)
+        [self alert:@"Error :/" :@"Title or description to short"];
+    else {
+        NSDictionary *send = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:[[_note objectForKey:@"id"] intValue]],@"id", nil];
+        
+       NSLog(@"To upload JSON: %@", send);
+        
+        httpData *dataFetch = [[httpData alloc]init];
+        dataFetch.delegate = self;
+        [dataFetch postData:send :@"DELETE"]; 
+        
+        NSLog(@"%@", send);
+        
+    }
+}
+
+-(void)didFininshRequestWithJson:(NSArray *)responseJson
+{
+    
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        title.text = @"";
+        description.text = @"";
+        NSLog(@"%@", responseJson);
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"update"
+         object:self];
+        [[self navigationController] popViewControllerAnimated:YES];
+    });
+  
+    NSLog(@"Finished");
+    
+    
+}
+// Recive GET Failed.
+-(void)didFailWithRequest:(NSString *)err {
+    NSLog(@"%@", err);
+    
+    [self alert:@"Error :/" :err.description];
+}
+
+
+#pragma Other
+
+-(void)alert:(NSString *)title :(NSString *)desc {
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:desc
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    alert.view.tintColor = [Colors mainColor];
+    
+    
+    
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Ok"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    [alert addAction:cancel];
+    
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 -(void)animateDownPress:(id)sender; {
     UIButton *btnPressed = (UIButton*)sender;
@@ -159,6 +227,41 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
 }
 
 
+#pragma Button selectors
+
+-(void)remove {
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@"Remove"
+                                  message:@"Are you sure you want to remove note?"
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    alert.view.tintColor = [Colors mainColor];
+    
+
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Yes"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [self deleteNote];
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    [alert addAction:cancel];
+    [alert addAction:ok];
+    
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 

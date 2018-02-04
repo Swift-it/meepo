@@ -12,6 +12,8 @@
 
 + (UIColor*) mainColor;
 
++ (UIColor*) mainColorLowAlpha;
+
 + (UIColor*) veryLightGray;
 
 + (UIColor*) lightGray;

@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 
-#define k_notesLink @"https://timesheet-1172.appspot.com/2a00ea83/notes"
-
 @interface ViewController ()
 
 @end
@@ -20,21 +18,25 @@
     [super viewDidLoad];
     
     
-    notesArray = [[NSArray alloc] init];
+    notesArray = [[NSMutableArray alloc] init];
     httpData *dataFetch = [[httpData alloc]init];
     dataFetch.delegate = self;
-    [datafetch getData:k_notesLink];
+    [dataFetch getData];
+    
     
     self.view.backgroundColor = [Colors whiteColor];
     
     // Setting up Navbar
     [self setTitle:@"Meepo"];
-    [[UIView appearance] setTintColor:[UIColor whiteColor]];
     UIBarButtonItem *newback = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newback];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setBarTintColor:[Colors mainColor]];
     [self.navigationController.navigationBar setTranslucent:NO];
+    
+    // Add button
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNote)];
+    [self.navigationItem setRightBarButtonItem:rightBarButton animated:NO];
     
     // Setting up tableView
     self.table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
@@ -46,11 +48,28 @@
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_table];
     [notesCell setTableViewWidth:self.view.frame.size.width];
+    
+    refresh = [[UIRefreshControl alloc]init];
+    [self.table addSubview:refresh];
+    [refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    
+    // If database has been updated by user, refresh table
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshTable)
+                                                 name:@"update"
+                                               object:nil];
 
 }
 
 
 #pragma TableView
+
+- (void)refreshTable {
+    [notesArray removeAllObjects];
+    httpData *dataFetch = [[httpData alloc]init];
+    dataFetch.delegate = self;
+    [dataFetch getData];
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -77,13 +96,10 @@
         case 0:
         {
             UITableViewCell * cell = [self cellForIndex:indexPath];
-            
-            
             NSDictionary *currentDict = [notesArray objectAtIndex:indexPath.row];
             [(notesCell *)cell  configureCellForText:currentDict];
             
             return cell;
-            
         }
         default: return nil;
     }
@@ -120,6 +136,10 @@
 }
 
 
+-(void)addNote {
+    addNote *viewController = [[addNote alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 #pragma Other
 // Recive GET data
@@ -127,8 +147,11 @@
 {
     NSLog(@"%@", responseJson);
     NSLog(@"count: %lu", (unsigned long)responseJson.count);
-   // notesArray = [NSArray arrayWithArray:responseJson];
-    [self.table reloadData];
+    notesArray = [NSMutableArray arrayWithArray:responseJson];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [refresh endRefreshing];
+        [self.table reloadData];
+    });
 }
 
 // Recive GET Failed.
@@ -156,7 +179,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 

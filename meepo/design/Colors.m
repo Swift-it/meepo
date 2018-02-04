@@ -16,6 +16,11 @@
     return [UIColor colorWithRed:241/255.0 green:112/255.0 blue:48/255.0 alpha:1];
 }
 
++ (UIColor*) mainColorLowAlpha
+{
+    return [UIColor colorWithRed:241/255.0 green:112/255.0 blue:48/255.0 alpha:0.5];
+}
+
 + (UIColor*) veryLightGray
 {
     return [UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1];
