@@ -15,7 +15,7 @@
 #import "detailedNote.h"
 #import "addNote.h"
 
-@interface ViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, httpDataDelegate> {
+@interface allNotes : UIViewController  <UITableViewDataSource, UITableViewDelegate, httpDataDelegate> {
   
     NSArray *notesArray;
     UIRefreshControl *refresh;

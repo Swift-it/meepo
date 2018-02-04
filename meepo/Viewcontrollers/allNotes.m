@@ -6,13 +6,16 @@
 //  Copyright © 2018 Mikael Melander. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "allNotes.h"
 
-@interface ViewController ()
+@interface allNotes ()
 
 @end
 
-@implementation ViewController
+static CGFloat kPadding = 16.0f;
+static CGFloat kStandardButtonHeight = 50;
+
+@implementation allNotes
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -135,12 +138,29 @@
 }
 
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return kStandardButtonHeight;
+    
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0 && notesArray.count > 0)
+        return [self headerView];
+    else
+        return nil;
+    
+}
+
+
+
+#pragma Other
+
 -(void)addNote {
     addNote *viewController = [[addNote alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-#pragma Other
 // Recive GET data
 -(void)didFininshRequestWithJson:(NSArray *)responseJson
 {
@@ -178,6 +198,21 @@
     }
     titleView.text = title;
     [titleView sizeToFit];
+}
+
+
+-(UIView *)headerView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0 , 0, self.view.bounds.size.width, kStandardButtonHeight)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPadding , kPadding, self.view.bounds.size.width-(kPadding*2), kStandardButtonHeight-(kPadding*2))];
+    headerLabel.text = [NSString stringWithFormat:@"Found: %lu notes", (unsigned long)notesArray.count];
+    headerLabel.font = [Fonts placeholderFont];
+    headerLabel.textColor = [UIColor lightGrayColor];
+    headerLabel.textAlignment = NSTextAlignmentCenter;
+    headerLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    headerLabel.numberOfLines = 0;
+    [view addSubview:headerLabel];
+    
+    return view;
 }
 
 

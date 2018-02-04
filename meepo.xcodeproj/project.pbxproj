@@ -16,7 +16,7 @@
 		8C102517202618D100F9FDC5 /* 80.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C102511202618D100F9FDC5 /* 80.png */; };
 		8C102518202618D100F9FDC5 /* 144.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C102512202618D100F9FDC5 /* 144.png */; };
 		8CB5FB9C20244AD200809D45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FB9B20244AD200809D45 /* AppDelegate.m */; };
-		8CB5FB9F20244AD200809D45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FB9E20244AD200809D45 /* ViewController.m */; };
+		8CB5FB9F20244AD200809D45 /* allNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5FB9E20244AD200809D45 /* allNotes.m */; };
 		8CB5FBA220244AD200809D45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB5FBA020244AD200809D45 /* Main.storyboard */; };
 		8CB5FBA420244AD200809D45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB5FBA320244AD200809D45 /* Assets.xcassets */; };
 		8CB5FBA720244AD200809D45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB5FBA520244AD200809D45 /* LaunchScreen.storyboard */; };
@@ -60,8 +60,8 @@
 		8CB5FB9720244AD200809D45 /* meepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5FB9A20244AD200809D45 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8CB5FB9B20244AD200809D45 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8CB5FB9D20244AD200809D45 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8CB5FB9E20244AD200809D45 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8CB5FB9D20244AD200809D45 /* allNotes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = allNotes.h; sourceTree = "<group>"; };
+		8CB5FB9E20244AD200809D45 /* allNotes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = allNotes.m; sourceTree = "<group>"; };
 		8CB5FBA120244AD200809D45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8CB5FBA320244AD200809D45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CB5FBA620244AD200809D45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -121,6 +121,19 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
+		8C10251920274E8C00F9FDC5 /* Viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5FB9D20244AD200809D45 /* allNotes.h */,
+				8CB5FB9E20244AD200809D45 /* allNotes.m */,
+				8C1025022024C62B00F9FDC5 /* detailedNote.h */,
+				8C1025032024C62B00F9FDC5 /* detailedNote.m */,
+				8C1025092025F8B300F9FDC5 /* addNote.h */,
+				8C10250A2025F8B300F9FDC5 /* addNote.m */,
+			);
+			path = Viewcontrollers;
+			sourceTree = "<group>";
+		};
 		8CB5FB8E20244AD200809D45 = {
 			isa = PBXGroup;
 			children = (
@@ -145,22 +158,17 @@
 			isa = PBXGroup;
 			children = (
 				8C10250C2026186A00F9FDC5 /* Icons */,
-				8CB5FBD7202463C000809D45 /* http */,
-				8CB5FBD320244D8A00809D45 /* cell */,
 				8CB5FBCC20244BD200809D45 /* design */,
+				8CB5FBD7202463C000809D45 /* http */,
+				8C10251920274E8C00F9FDC5 /* Viewcontrollers */,
+				8CB5FBD320244D8A00809D45 /* cell */,
 				8CB5FB9A20244AD200809D45 /* AppDelegate.h */,
 				8CB5FB9B20244AD200809D45 /* AppDelegate.m */,
-				8CB5FB9D20244AD200809D45 /* ViewController.h */,
-				8CB5FB9E20244AD200809D45 /* ViewController.m */,
 				8CB5FBA020244AD200809D45 /* Main.storyboard */,
 				8CB5FBA320244AD200809D45 /* Assets.xcassets */,
 				8CB5FBA520244AD200809D45 /* LaunchScreen.storyboard */,
 				8CB5FBA820244AD200809D45 /* Info.plist */,
 				8CB5FBA920244AD200809D45 /* main.m */,
-				8C1025022024C62B00F9FDC5 /* detailedNote.h */,
-				8C1025032024C62B00F9FDC5 /* detailedNote.m */,
-				8C1025092025F8B300F9FDC5 /* addNote.h */,
-				8C10250A2025F8B300F9FDC5 /* addNote.m */,
 			);
 			path = meepo;
 			sourceTree = "<group>";
@@ -352,7 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CB5FBDA202463D600809D45 /* httpData.m in Sources */,
-				8CB5FB9F20244AD200809D45 /* ViewController.m in Sources */,
+				8CB5FB9F20244AD200809D45 /* allNotes.m in Sources */,
 				8C10250B2025F8B300F9FDC5 /* addNote.m in Sources */,
 				8CB5FBD120244BE600809D45 /* Colors.m in Sources */,
 				8C1025042024C62B00F9FDC5 /* detailedNote.m in Sources */,

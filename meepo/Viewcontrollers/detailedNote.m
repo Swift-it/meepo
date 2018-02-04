@@ -13,6 +13,8 @@
 @end
 
 static CGFloat kPadding = 16.0f;
+static CGFloat kStandardButtonHeight = 50;
+static CGFloat kNavbarStatusbarHeight = 120;
 
 
 @implementation detailedNote
@@ -48,7 +50,7 @@ static CGFloat kPadding = 16.0f;
     title.lineBreakMode = NSLineBreakByWordWrapping;
     title.lineBreakMode = NSLineBreakByTruncatingTail;
     title.numberOfLines = 0;
-    title.text = [_note objectForKey:@"title"];
+    title.text = [NSString stringWithFormat:@"%@%@",[[[_note objectForKey:@"title"] substringToIndex:1] uppercaseString],[[_note objectForKey:@"title"] substringFromIndex:1]];
     title.frame = CGRectMake(kPadding, kPadding, [self calculateLabelSize:title].width, [self calculateLabelSize:title].height);
     [title sizeToFit];
     
@@ -74,8 +76,15 @@ static CGFloat kPadding = 16.0f;
     [scroller addSubview:description];
     
 
+    // Placing buttons at bottom of screen.
+    CGFloat buttonOriginY;
+    if((description.frame.size.height+description.frame.origin.y+kPadding)<self.view.bounds.size.height)
+        buttonOriginY = self.view.bounds.size.height-kNavbarStatusbarHeight-((kStandardButtonHeight-kPadding)*2);
+    else
+        buttonOriginY = description.frame.size.height+description.frame.origin.y+kPadding;
+    
     // Change
-    UIButton *change = [[UIButton alloc] initWithFrame:CGRectMake(8, description.frame.size.height+description.frame.origin.y+kPadding, self.view.bounds.size.width-16, 50)];
+    UIButton *change = [[UIButton alloc] initWithFrame:CGRectMake(8, buttonOriginY, self.view.bounds.size.width-16, kStandardButtonHeight)];
     [change addTarget:self action:@selector(changeNote) forControlEvents: UIControlEventTouchUpInside];
     [change addTarget:self action:@selector(animateDownPress:) forControlEvents: UIControlEventTouchDown];
     [change addTarget:self action:@selector(animateUpPress:) forControlEvents: UIControlEventTouchUpOutside];
@@ -87,7 +96,7 @@ static CGFloat kPadding = 16.0f;
     [scroller addSubview:change];
     
     // Remove
-    UIButton *remove = [[UIButton alloc] initWithFrame:CGRectMake(8, change.frame.origin.y+change.frame.size.height+kPadding, self.view.bounds.size.width-16, 50)];
+    UIButton *remove = [[UIButton alloc] initWithFrame:CGRectMake(8, change.frame.origin.y+change.frame.size.height+kPadding, self.view.bounds.size.width-16, kStandardButtonHeight)];
     [remove addTarget:self action:@selector(remove) forControlEvents: UIControlEventTouchUpInside];
     [remove addTarget:self action:@selector(animateDownPress:) forControlEvents: UIControlEventTouchDown];
     [remove addTarget:self action:@selector(animateUpPress:) forControlEvents: UIControlEventTouchUpOutside];

@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-377" y="79"/>
         </scene>
-        <!--View Controller-->
+        <!--All Notes-->
         <scene sceneID="QqE-As-cVQ">
             <objects>
-                <viewController id="eWQ-TV-evv" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="eWQ-TV-evv" customClass="allNotes" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aYA-q2-mfj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

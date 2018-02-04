@@ -124,7 +124,9 @@ static CGFloat kBigPadding = 40.0f;
 - (void)configureCellForText:(NSDictionary *)text
 {
     [self setNeedsLayout];
-    self.mainText.text = [NSString stringWithFormat:@"%@ id: %@", [text objectForKey:@"title"], [text objectForKey:@"id"]];
+    
+    // Capitalize first letter
+    self.mainText.text = [NSString stringWithFormat:@"%@%@",[[[text objectForKey:@"title"] substringToIndex:1] uppercaseString],[[text objectForKey:@"title"] substringFromIndex:1]];
     self.mainText.frame = CGRectMake(kPadding*2, kPadding, [notesCell calculateLabelSize:self.mainText :(self.mainText.font.lineHeight*2)].width, [notesCell calculateLabelSize:self.mainText :self.mainText.font.lineHeight*2].height);
 
     // If title is more than 2 lines description needs to be >= 2
