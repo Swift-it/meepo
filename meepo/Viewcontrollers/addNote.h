@@ -15,6 +15,7 @@
     UIBarButtonItem *rightBarButton;
     UITextField *title;
     UITextView *description;
+    UIButton *upload;
 }
 
 @property(nonatomic, retain) NSDictionary *change;

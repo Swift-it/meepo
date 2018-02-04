@@ -8,13 +8,16 @@
 
 #import "addNote.h"
 
+
+
 @interface addNote ()
 
 @end
 
 static CGFloat kPadding = 16.0f;
-static CGFloat kStandardHeaderLabelHeight = 50.0f;
+static CGFloat kStandardHeaderLabelHeight = 40.0f;
 static CGFloat kStandardButtonHeight = 50;
+static CGFloat kNavbarStatusbarHeight = 55;
 
 @implementation addNote
 
@@ -42,8 +45,7 @@ static CGFloat kStandardButtonHeight = 50;
     [title.layer setCornerRadius:10.0f];
     title.tag=0;
    
-    
-    description = [[UITextView alloc] initWithFrame:CGRectMake(kPadding, title.frame.size.height+title.frame.origin.y+kPadding, self.view.bounds.size.width-(kPadding*2), self.view.bounds.size.height-((void)(title.frame.size.height+title.frame.origin.y+kPadding), self.view.bounds.size.width-(kPadding*3)-kStandardButtonHeight))];
+    description = [[UITextView alloc] initWithFrame:CGRectMake(kPadding, title.frame.size.height+title.frame.origin.y+kPadding, self.view.bounds.size.width-(kPadding*2), self.view.frame.size.height/3)];
     description.editable = YES;
     description.text = @"Description...";
     description.backgroundColor = [Colors veryLightGray];
@@ -52,9 +54,8 @@ static CGFloat kStandardButtonHeight = 50;
     [description.layer setCornerRadius:10.0f];
     description.tag = 1;
     description.delegate = self;
-   
     
-    
+  
  
     
     // Remove keyboard
@@ -62,7 +63,7 @@ static CGFloat kStandardButtonHeight = 50;
 
     
     // Change
-    UIButton *upload = [[UIButton alloc] initWithFrame:CGRectMake(kPadding, description.frame.size.height+description.frame.origin.y+kPadding, self.view.bounds.size.width-(kPadding*2), kStandardButtonHeight)];
+    upload = [[UIButton alloc] initWithFrame:CGRectMake(kPadding, self.view.bounds.size.height-kStandardButtonHeight-kPadding-kNavbarStatusbarHeight, self.view.bounds.size.width-(kPadding*2), kStandardButtonHeight)];
     [upload addTarget:self action:@selector(sendNote) forControlEvents: UIControlEventTouchUpInside];
     [upload addTarget:self action:@selector(animateDownPress:) forControlEvents: UIControlEventTouchDown];
     [upload addTarget:self action:@selector(animateUpPress:) forControlEvents: UIControlEventTouchUpOutside];
@@ -180,11 +181,19 @@ static CGFloat kStandardButtonHeight = 50;
     return NO;
 }
 
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 10, 10);
+}
+
+
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 10, 10);
+}
+
 
 -(void)removeKeyboard {
     [description resignFirstResponder];
 }
-
 
 #pragma Other
 

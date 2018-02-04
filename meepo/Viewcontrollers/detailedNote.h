@@ -17,6 +17,7 @@
   
     UILabel *title;
     UILabel *description;
+
 }
 @property(nonatomic, retain) NSDictionary *note;
 
