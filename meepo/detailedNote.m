@@ -13,7 +13,6 @@
 @end
 
 static CGFloat kPadding = 16.0f;
-static CGFloat kStandardHeaderLabelHeight = 50.0f;
 
 
 @implementation detailedNote
@@ -77,7 +76,7 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
 
     // Change
     UIButton *change = [[UIButton alloc] initWithFrame:CGRectMake(8, description.frame.size.height+description.frame.origin.y+kPadding, self.view.bounds.size.width-16, 50)];
-    [change addTarget:self action:nil forControlEvents: UIControlEventTouchUpInside];
+    [change addTarget:self action:@selector(changeNote) forControlEvents: UIControlEventTouchUpInside];
     [change addTarget:self action:@selector(animateDownPress:) forControlEvents: UIControlEventTouchDown];
     [change addTarget:self action:@selector(animateUpPress:) forControlEvents: UIControlEventTouchUpOutside];
     [change setTitle:[@"Ändra" uppercaseString] forState:UIControlStateNormal];
@@ -105,6 +104,11 @@ static CGFloat kStandardHeaderLabelHeight = 50.0f;
     [self.view addSubview:scroller];
 }
 
+-(void)changeNote {
+    addNote *viewController = [[addNote alloc] init];
+    viewController.change = _note;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 -(void)deleteNote {
     

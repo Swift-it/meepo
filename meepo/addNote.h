@@ -17,4 +17,6 @@
     UITextView *description;
 }
 
+@property(nonatomic, retain) NSDictionary *change;
+
 @end

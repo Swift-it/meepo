@@ -63,7 +63,7 @@
     
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:type];
-    if ([type isEqualToString:@"POST"])
+    if ([type isEqualToString:@"POST"] || [type isEqualToString:@"PUT"])
         [request setHTTPBody:data];
     
     NSLog(@"%@", urlString);

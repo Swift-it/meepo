@@ -24,7 +24,7 @@ static CGFloat kStandardButtonHeight = 50;
      self.view.backgroundColor = [Colors whiteColor];
     
     // Setting up Navbar
-    [self setTitle:@"Add note"];
+   
     UIBarButtonItem *newback = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newback];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -41,7 +41,7 @@ static CGFloat kStandardButtonHeight = 50;
     [title.layer setBorderWidth:1.0];
     [title.layer setCornerRadius:10.0f];
     title.tag=0;
-    [self.view addSubview:title];
+   
     
     description = [[UITextView alloc] initWithFrame:CGRectMake(kPadding, title.frame.size.height+title.frame.origin.y+kPadding, self.view.bounds.size.width-(kPadding*2), self.view.bounds.size.height-((void)(title.frame.size.height+title.frame.origin.y+kPadding), self.view.bounds.size.width-(kPadding*3)-kStandardButtonHeight))];
     description.editable = YES;
@@ -52,7 +52,10 @@ static CGFloat kStandardButtonHeight = 50;
     [description.layer setCornerRadius:10.0f];
     description.tag = 1;
     description.delegate = self;
-    [self.view addSubview:description];
+   
+    
+    
+ 
     
     // Remove keyboard
     rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(removeKeyboard)];
@@ -68,26 +71,57 @@ static CGFloat kStandardButtonHeight = 50;
     upload.backgroundColor = [Colors mainColor];
     upload.clipsToBounds = YES;
     upload.layer.cornerRadius = 10/2.0f;
-    [self.view addSubview:upload];
+   
+    
+    
+    // If changing not instead of createign
+    if([_change count] > 0) {
+        [self setTitle:@"Change note"];
+        [upload setTitle:[@"Save" uppercaseString] forState:UIControlStateNormal];
+        title.text = [_change objectForKey:@"title"];
+        description.text = [_change objectForKey:@"description"];
+    } else {
+        [self setTitle:@"Add note"];
+        [upload setTitle:[@"Add" uppercaseString] forState:UIControlStateNormal];
+    }
+    
+     [self.view addSubview:title];
+     [self.view addSubview:description];
+     [self.view addSubview:upload];
 }
 
 
 #pragma HTTP arguments
 
+
+
 -(void)sendNote {
     
-    if (title.text.length < 3 || description.text.length < 3)
+    if ([self textToShort])
         [self alert:@"Error :/" :@"Title or description to short"];
     else {
-    NSDictionary *send = [[NSDictionary alloc] initWithObjectsAndKeys:title.text,@"title",description.text,@"description", nil];
-        
-        NSLog(@"To upload JSON: %@", send);
+        NSDictionary *send;
         
         httpData *dataFetch = [[httpData alloc]init];
         dataFetch.delegate = self;
-        [dataFetch postData:send :@"POST"];
-      
+        if ([_change objectForKey:@"id"] != nil) {
+            send = [[NSDictionary alloc] initWithObjectsAndKeys:title.text,@"title",description.text,@"description",[NSNumber numberWithInt:[[_change objectForKey:@"id"] intValue]],@"id", nil];
+            [dataFetch postData:send :@"PUT"];
+        }
+        else {
+            send = [[NSDictionary alloc] initWithObjectsAndKeys:title.text,@"title",description.text,@"description", nil];
+            [dataFetch postData:send :@"POST"];
+        }
+        NSLog(@"To upload JSON: %@", send);
     }
+}
+
+-(BOOL)textToShort {
+    
+     if (title.text.length < 3 || description.text.length < 3)
+         return YES;
+     else
+         return NO;
 }
 
 -(void)didFininshRequestWithJson:(NSArray *)responseJson
@@ -99,7 +133,7 @@ static CGFloat kStandardButtonHeight = 50;
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"update"
          object:self];
-        [[self navigationController] popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     });
   
 

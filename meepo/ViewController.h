@@ -17,7 +17,7 @@
 
 @interface ViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, httpDataDelegate> {
   
-    NSMutableArray *notesArray;
+    NSArray *notesArray;
     UIRefreshControl *refresh;
 
 }

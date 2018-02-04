@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     
-    notesArray = [[NSMutableArray alloc] init];
+    notesArray = [[NSArray alloc] init];
     httpData *dataFetch = [[httpData alloc]init];
     dataFetch.delegate = self;
     [dataFetch getData];
@@ -65,7 +65,6 @@
 #pragma TableView
 
 - (void)refreshTable {
-    [notesArray removeAllObjects];
     httpData *dataFetch = [[httpData alloc]init];
     dataFetch.delegate = self;
     [dataFetch getData];
@@ -147,8 +146,15 @@
 {
     NSLog(@"%@", responseJson);
     NSLog(@"count: %lu", (unsigned long)responseJson.count);
-    notesArray = [NSMutableArray arrayWithArray:responseJson];
+    notesArray = [NSArray arrayWithArray:responseJson];
+    
+    // Sorting array by ID descending
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"id"
+                                                 ascending:NO];
+    notesArray = [notesArray sortedArrayUsingDescriptors:@[sortDescriptor]];
     dispatch_sync(dispatch_get_main_queue(), ^{
+        
         [refresh endRefreshing];
         [self.table reloadData];
     });
@@ -158,8 +164,6 @@
 -(void)didFailWithRequest:(NSString *)err {
     NSLog(@"%@", err);
 }
-
-
 
 // Setting the style of navigationbar Title
 - (void)setTitle:(NSString *)title {

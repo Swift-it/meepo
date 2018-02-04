@@ -10,6 +10,7 @@
 #import "Colors.h"
 #import "Fonts.h"
 #import "httpData.h"
+#import "addNote.h"
 
 
 @interface detailedNote : UIViewController <httpDataDelegate> {
