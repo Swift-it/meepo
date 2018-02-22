@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "noteObject.h"
-#import "Reachability.h"
 
 @protocol httpDataDelegate <NSObject>
 @required
