@@ -125,8 +125,10 @@ static CGFloat kBigPadding = 40.0f;
 {
     [self setNeedsLayout];
     
+    noteObject *note = [[noteObject alloc] initWithDic:text];
+    
     // Capitalize first letter
-    self.mainText.text = [NSString stringWithFormat:@"%@%@",[[[text objectForKey:@"title"] substringToIndex:1] uppercaseString],[[text objectForKey:@"title"] substringFromIndex:1]];
+    self.mainText.text = [note getTitle];
     self.mainText.frame = CGRectMake(kPadding*2, kPadding, [notesCell calculateLabelSize:self.mainText :(self.mainText.font.lineHeight*2)].width, [notesCell calculateLabelSize:self.mainText :self.mainText.font.lineHeight*2].height);
 
     // If title is more than 2 lines description needs to be >= 2
@@ -134,7 +136,7 @@ static CGFloat kBigPadding = 40.0f;
     if (self.mainText.frame.size.height >= (self.mainText.font.lineHeight*2))
         lineheight = 2;
     
-    self.descriptionText.text = [text objectForKey:@"description"];
+    self.descriptionText.text = [note getDescription];
     self.descriptionText.frame = CGRectMake(kPadding*2, kPadding*2+self.mainText.frame.size.height, kTableViewWidth-kPadding-kBigPadding, [notesCell calculateLabelSize:self.descriptionText: (self.descriptionText.font.lineHeight*lineheight)].height);
 
     

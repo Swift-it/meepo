@@ -98,8 +98,7 @@ static CGFloat kStandardButtonHeight = 50;
         case 0:
         {
             UITableViewCell * cell = [self cellForIndex:indexPath];
-            NSDictionary *currentDict = [notesArray objectAtIndex:indexPath.row];
-            [(notesCell *)cell  configureCellForText:currentDict];
+            [(notesCell *)cell  configureCellForText:[notesArray objectAtIndex:indexPath.row]];
             
             return cell;
         }
@@ -132,7 +131,7 @@ static CGFloat kStandardButtonHeight = 50;
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         detailedNote *viewController = [[detailedNote alloc] init];
-        viewController.note = [notesArray objectAtIndex:indexPath.row];
+        viewController.noteDic = [notesArray objectAtIndex:indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
     }
 }

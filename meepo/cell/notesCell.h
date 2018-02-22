@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Fonts.h"
 #import "Colors.h"
+#import "noteObject.h"
 
 static NSString *kCellIdentifier = @"notesCell";
 

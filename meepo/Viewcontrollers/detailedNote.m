@@ -23,7 +23,8 @@ static CGFloat kNavbarStatusbarHeight = 120;
     [super viewDidLoad];
     
     self.view.backgroundColor = [Colors whiteColor];
-
+    
+    note = [[noteObject alloc] initWithDic:_noteDic];
  
     // Setting up Navbar
     [self setTitle:@"Details"];
@@ -32,10 +33,6 @@ static CGFloat kNavbarStatusbarHeight = 120;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setBarTintColor:[Colors mainColor]];
     [self.navigationController.navigationBar setTranslucent:NO];
-  
-    
-    
-    NSLog(@"id: %@", [_note objectForKey:@"id"]);
     
     
     
@@ -50,7 +47,7 @@ static CGFloat kNavbarStatusbarHeight = 120;
     title.lineBreakMode = NSLineBreakByWordWrapping;
     title.lineBreakMode = NSLineBreakByTruncatingTail;
     title.numberOfLines = 0;
-    title.text = [NSString stringWithFormat:@"%@%@",[[[_note objectForKey:@"title"] substringToIndex:1] uppercaseString],[[_note objectForKey:@"title"] substringFromIndex:1]];
+    title.text = [note getTitle];
     title.frame = CGRectMake(kPadding, kPadding, [self calculateLabelSize:title].width, [self calculateLabelSize:title].height);
     [title sizeToFit];
     
@@ -70,7 +67,7 @@ static CGFloat kNavbarStatusbarHeight = 120;
     description.lineBreakMode = NSLineBreakByWordWrapping;
     description.numberOfLines = 0;
     description.lineBreakMode = NSLineBreakByTruncatingTail;
-    description.text = [_note objectForKey:@"description"];
+    description.text = [note getDescription];
     description.frame = CGRectMake(kPadding, title.frame.size.height + title.frame.origin.y + kPadding, [self calculateLabelSize:description].width, [self calculateLabelSize:description].height);
     [description sizeToFit];
     [scroller addSubview:description];
@@ -115,7 +112,7 @@ static CGFloat kNavbarStatusbarHeight = 120;
 
 -(void)changeNote {
     addNote *viewController = [[addNote alloc] init];
-    viewController.change = _note;
+    viewController.change = _noteDic;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -124,15 +121,12 @@ static CGFloat kNavbarStatusbarHeight = 120;
     if (title.text.length < 3 || description.text.length < 3)
         [self alert:@"Error :/" :@"Title or description to short"];
     else {
-        NSDictionary *send = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:[[_note objectForKey:@"id"] intValue]],@"id", nil];
-        
-       NSLog(@"To upload JSON: %@", send);
+        noteObject *remove = [[noteObject alloc] initForSave:[note getId]];
         
         httpData *dataFetch = [[httpData alloc]init];
         dataFetch.delegate = self;
-        [dataFetch postData:send :@"DELETE"]; 
-        
-        NSLog(@"%@", send);
+        [dataFetch postData:remove :@"DELETE"];
+
         
     }
 }

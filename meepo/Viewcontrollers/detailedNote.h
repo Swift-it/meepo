@@ -11,14 +11,17 @@
 #import "Fonts.h"
 #import "httpData.h"
 #import "addNote.h"
+#import "noteObject.h"
 
 
 @interface detailedNote : UIViewController <httpDataDelegate> {
   
     UILabel *title;
     UILabel *description;
+    noteObject *note;
+    
 
 }
-@property(nonatomic, retain) NSDictionary *note;
+@property(nonatomic, retain) NSDictionary *noteDic;
 
 @end

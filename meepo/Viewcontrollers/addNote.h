@@ -10,12 +10,15 @@
 #import "Colors.h"
 #import "Fonts.h"
 #import "httpData.h"
+#import "noteObject.h"
+
 
 @interface addNote : UIViewController <UITextFieldDelegate, UITextViewDelegate, httpDataDelegate> {
     UIBarButtonItem *rightBarButton;
     UITextField *title;
     UITextView *description;
     UIButton *upload;
+    noteObject *note;
 }
 
 @property(nonatomic, retain) NSDictionary *change;

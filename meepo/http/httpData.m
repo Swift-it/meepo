@@ -16,45 +16,49 @@
     
     NSURL *url = [[NSURL alloc]initWithString:k_notesLink];
     NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:url
+    NSURLSessionDataTask *task = [session dataTaskWithURL:url
             completionHandler:^(NSData *data,
                                 NSURLResponse *response,
                                 NSError *err) {
                 
-                NSError *error = nil;
+               
                 
                 // request error
-                if (error) {
-                    [self.delegate didFailWithRequest:[NSString stringWithFormat:@"error: %@", error]];
+                if (err) {
+                    [task cancel];
+                    [self.delegate didFailWithRequest:[NSString stringWithFormat:@"error: %@", err]];
+                    
                 }
                 // response error
                 if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                     NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
                     if (statusCode != 200) {
+                        [task cancel];
                         [self.delegate didFailWithRequest:[NSString stringWithFormat:@"request failed with status code: %ld", (long)statusCode]];
                     }
                 }
                 
-               if (!error) {
-                   NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+               if (!err) {
+                   NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&err];
                    NSLog(@"%@", jsonArray);
                     [self.delegate didFininshRequestWithJson:jsonArray];
                 }
-                else
-                    return;
-    }] resume];
+
+    }];
+    [task resume];
 }
 
--(void)postData:(NSDictionary *)note :(NSString *)type {
+-(void)postData:(noteObject *)note :(NSString *)type {
     
     NSString *urlString;
     if (![type isEqualToString:@"POST"])
-        urlString = [NSString stringWithFormat:@"%@/%@", k_notesLink, [note objectForKey:@"id"]];
+        urlString = [NSString stringWithFormat:@"%@/%d", k_notesLink, [note getId]];
     else
         urlString = k_notesLink;
+    
    
     NSError *error;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:note options:0 error:&error];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:[note getJson] options:0 error:&error];
     NSURL *url = [[NSURL alloc]initWithString:urlString];
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url

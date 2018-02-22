@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "noteObject.h"
+#import "Reachability.h"
 
 @protocol httpDataDelegate <NSObject>
 @required
@@ -19,7 +21,7 @@
 
 
 -(void)getData;
--(void)postData:(NSDictionary *)note :(NSString *)type;
+-(void)postData:(noteObject *)note :(NSString *)type;
 
 @property (nonatomic,strong) NSObject <httpDataDelegate> *delegate;
 

@@ -24,6 +24,8 @@ static CGFloat kNavbarStatusbarHeight = 55;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
      self.view.backgroundColor = [Colors whiteColor];
     
     // Setting up Navbar
@@ -73,14 +75,16 @@ static CGFloat kNavbarStatusbarHeight = 55;
     upload.clipsToBounds = YES;
     upload.layer.cornerRadius = 10/2.0f;
    
+   
     
     
     // If changing not instead of createign
     if([_change count] > 0) {
+         note = [[noteObject alloc] initWithDic:_change];
         [self setTitle:@"Change note"];
         [upload setTitle:[@"Save" uppercaseString] forState:UIControlStateNormal];
-        title.text = [_change objectForKey:@"title"];
-        description.text = [_change objectForKey:@"description"];
+        title.text = [note getTitle];
+        description.text = [note getDescription];
     } else {
         [self setTitle:@"Add note"];
         [upload setTitle:[@"Add" uppercaseString] forState:UIControlStateNormal];
@@ -106,12 +110,15 @@ static CGFloat kNavbarStatusbarHeight = 55;
         httpData *dataFetch = [[httpData alloc]init];
         dataFetch.delegate = self;
         if ([_change objectForKey:@"id"] != nil) {
-            send = [[NSDictionary alloc] initWithObjectsAndKeys:title.text,@"title",description.text,@"description",[NSNumber numberWithInt:[[_change objectForKey:@"id"] intValue]],@"id", nil];
-            [dataFetch postData:send :@"PUT"];
+    
+            noteObject *save = [[noteObject alloc] initForSave:title.text andDesc:description.text andId:[note getId]];
+            
+            
+            [dataFetch postData:save :@"PUT"];
         }
         else {
-            send = [[NSDictionary alloc] initWithObjectsAndKeys:title.text,@"title",description.text,@"description", nil];
-            [dataFetch postData:send :@"POST"];
+            noteObject *save = [[noteObject alloc] initForSave:title.text andDesc:description.text];
+            [dataFetch postData:save :@"POST"];
         }
         NSLog(@"To upload JSON: %@", send);
     }
